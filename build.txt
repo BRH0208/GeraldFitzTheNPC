@@ -1,0 +1,3 @@
+displayName = Gerald Fitz the NPC
+author = Gerald Fitz
+version = 0.1
