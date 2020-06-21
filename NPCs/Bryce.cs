@@ -2,6 +2,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.Localization;
+using static Terraria.ModLoader.ModContent;
 using System;
 using System.Collections;
 
@@ -88,7 +89,8 @@ namespace GeraldFitzTheNPC.NPCs
 			}
 		}
 		public override void SetupShop(Chest shop, ref int nextSlot) {
-			
+			shop.item[nextSlot].SetDefaults(ItemType<Items.DynamiteItem>());
+			nextSlot++;
 			if(!Main.dayTime){
 				shop.item[nextSlot].SetDefaults(ItemID.Obelisk);
 				nextSlot++;
