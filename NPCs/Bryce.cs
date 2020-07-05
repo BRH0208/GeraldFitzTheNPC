@@ -6,6 +6,7 @@ using static Terraria.ModLoader.ModContent;
 using System;
 using System.Collections;
 
+
 namespace GeraldFitzTheNPC.NPCs
 {
 	[AutoloadHead]

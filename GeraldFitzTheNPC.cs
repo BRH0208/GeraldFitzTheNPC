@@ -1,3 +1,4 @@
+  
 using Terraria.ModLoader;
 
 namespace GeraldFitzTheNPC

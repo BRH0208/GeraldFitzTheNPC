@@ -32,5 +32,19 @@ namespace GeraldFitzTheNPC {
 			packet.Write((byte)player.whoAmI);
 			packet.Send(toWho, fromWho);
 		}
-	}
+
+        public override void ModifyZoom(ref float zoom)
+        {
+            Player player = this.player;
+            if (Main.mouseRight == true)
+            {
+                Item item = player.inventory[player.selectedItem];
+                if (item.Name == "Mortar" && item.modItem != null)
+                {
+                    zoom = 5f;
+                }
+            }
+            base.ModifyZoom(ref zoom);
+        }
+    }
 }
