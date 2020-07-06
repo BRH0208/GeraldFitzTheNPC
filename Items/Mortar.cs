@@ -39,10 +39,15 @@ namespace GeraldFitzTheNPC.Items
 		/*public override bool CanUseItem(Player player) {
 			return !player.isFlying;
 		}*/
-		
+		public override void HoldItem(Player player){
+			player.AddBuff(BuffType<Buffs.DeployedDebuff>(),3);
+		}
 		public override void HoldStyle(Player player) {
-			player.itemLocation += new Vector2(-32 * player.direction,-4);
+			player.itemLocation += new Vector2(-32 * player.direction,8);
 			player.itemRotation += player.direction * (float) Math.PI/4;
+        }
+		public override void UseStyle(Player player) {
+			player.itemLocation += new Vector2(0,8);
         }
 		/*public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack){
 			
@@ -69,9 +74,7 @@ namespace GeraldFitzTheNPC.Items
 		public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
 		{
 			int proj = Projectile.NewProjectile(position.X, position.Y, 0,-50, type, damage, knockBack, player.whoAmI);
-			mod.Logger.Debug(Main.projectile[proj].ai);
-			Main.projectile[proj].ai[1] = Main.screenPosition.X+Main.screenWidth/2;
-			mod.Logger.Debug(Main.projectile[proj].ai);
+			Main.projectile[proj].ai[1] = Main.MouseWorld.X;
 			return false; // return false because we don't want tmodloader to shoot projectile
 		}
 		/*

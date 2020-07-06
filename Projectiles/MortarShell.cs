@@ -36,8 +36,6 @@ namespace GeraldFitzTheNPC.Projectiles
 			if(projectile.position.Y < 50){
 				projectile.velocity.Y = 50;
 				projectile.position.X = projectile.ai[1];
-				mod.Logger.Debug("Bounce!");
-				mod.Logger.Debug(projectile.ai[1]);
 			}
 		}
 
