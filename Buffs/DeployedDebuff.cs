@@ -8,7 +8,9 @@ namespace GeraldFitzTheNPC.Buffs {
 			// DisplayName and Description are automatically set from the .lang files, but below is how it is done normally.
 			DisplayName.SetDefault("Deployed!");
 			Description.SetDefault("While Deployed, you cannot move");
-			
+			Main.debuff[Type] = true;
+			Main.buffNoTimeDisplay[Type] = true;
+			canBeCleared = false;
 		}
 
 		public override void Update(Player player, ref int buffIndex) {

@@ -7,21 +7,21 @@ using System;
 using static Terraria.ModLoader.ModContent;
 namespace GeraldFitzTheNPC.Items
 {
-	public class Mortar : ModItem
+	public class Artillery : ModItem
 	{
 		public override void SetStaticDefaults() 
 		{
-			DisplayName.SetDefault("Mortar"); // By default, capitalization in classnames will add spaces to the display name. You can customize the display name here by uncommenting this line.
-			Tooltip.SetDefault("This is a small siege mortar");
+			DisplayName.SetDefault("Artillery"); // By default, capitalization in classnames will add spaces to the display name. You can customize the display name here by uncommenting this line.
+			Tooltip.SetDefault("This is a large artillery weapon");
 		}
 
 		public override void SetDefaults() 
 		{
-			item.damage = 100;
+			item.damage = 80;
 			item.ranged = true;
 			item.width = 40;
 			item.height = 20;
-			item.useTime = 30;
+			item.useTime = 20;
 			item.useAnimation = 20;
 			item.useStyle = 3;//Hold the mortor outwards
 			item.noMelee = true; //so the item's animation doesn't do damage
@@ -73,7 +73,7 @@ namespace GeraldFitzTheNPC.Items
 		}*/
 		public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
 		{
-			int proj = Projectile.NewProjectile(position.X, position.Y, 0,-50, type, damage, knockBack, player.whoAmI);
+			int proj = Projectile.NewProjectile(position.X, position.Y, 0,-250, type, damage, knockBack, player.whoAmI);
 			Main.projectile[proj].ai[1] = Main.MouseWorld.X;
 			return false; // return false because we don't want tmodloader to shoot projectile
 		}
@@ -94,15 +94,15 @@ namespace GeraldFitzTheNPC.Items
 		public override void AddRecipes() 
 		{
 			ModRecipe recipe = new ModRecipe(mod);
-			recipe.AddIngredient(ItemID.GrenadeLauncher, 1);
-			recipe.AddIngredient(ItemID.LeadBar, 20);
+			recipe.AddIngredient(ItemID.RocketLauncher, 1);
+			recipe.AddIngredient(ItemID.OrichalcumBar, 20);
 			recipe.AddTile(TileID.WorkBenches);
 			recipe.SetResult(this);
 			recipe.AddRecipe();
 
 			recipe = new ModRecipe(mod);
-			recipe.AddIngredient(ItemID.GrenadeLauncher, 1);
-			recipe.AddIngredient(ItemID.IronBar, 20);
+			recipe.AddIngredient(ItemID.RocketLauncher, 1);
+			recipe.AddIngredient(ItemID.MythrilBar, 20);
 			recipe.AddTile(TileID.WorkBenches);
 			recipe.SetResult(this);
 			recipe.AddRecipe();

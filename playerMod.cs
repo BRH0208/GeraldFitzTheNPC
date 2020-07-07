@@ -41,7 +41,27 @@ namespace GeraldFitzTheNPC {
                 Item item = player.inventory[player.selectedItem];
                 if (item.Name == "Mortar" && item.modItem != null)
                 {
-                    zoom = 5f;
+                    zoom = 6f;
+                }
+				if (item.Name == "Cannon" && item.modItem != null)
+                {
+                    zoom = 10f;
+                }
+				if (item.Name == "Artillery" && item.modItem != null)
+                {
+                    zoom = 24f;
+                }
+				if (item.Name == "Mortar Triple Cannon" && item.modItem != null)
+                {
+                    zoom = 8f;
+                }
+				if (item.Name == "Ultimate Mortar Cannon" && item.modItem != null)
+                {
+                    zoom = 6f;
+                }
+				if (item.Name == "Artillery Cannonaide" && item.modItem != null)
+                {
+                    zoom = 20f;
                 }
             }
             base.ModifyZoom(ref zoom);

@@ -7,33 +7,33 @@ using System;
 using static Terraria.ModLoader.ModContent;
 namespace GeraldFitzTheNPC.Items
 {
-	public class Mortar : ModItem
+	public class UltimateCannonade : ModItem
 	{
 		public override void SetStaticDefaults() 
 		{
-			DisplayName.SetDefault("Mortar"); // By default, capitalization in classnames will add spaces to the display name. You can customize the display name here by uncommenting this line.
-			Tooltip.SetDefault("This is a small siege mortar");
+			DisplayName.SetDefault("Ultimate Mortar Cannon"); // By default, capitalization in classnames will add spaces to the display name. You can customize the display name here by uncommenting this line.
+			Tooltip.SetDefault("This is a large weapon with nine barrells");
 		}
 
 		public override void SetDefaults() 
 		{
-			item.damage = 100;
+			item.damage = 5;
 			item.ranged = true;
 			item.width = 40;
 			item.height = 20;
-			item.useTime = 30;
+			item.useTime = 5;
 			item.useAnimation = 20;
 			item.useStyle = 3;//Hold the mortor outwards
 			item.noMelee = true; //so the item's animation doesn't do damage
 			item.knockBack = 0;
-			item.value = 10000;
+			item.value = 30000;
 			item.rare = ItemRarityID.Green;
 			item.UseSound = SoundID.Item11;
-			item.autoReuse = false;
+			item.autoReuse = true;
 			item.shoot = ProjectileType<MortarProjectile>();
 			item.shootSpeed = 16f;
 			//item.Ammo = 30;
-			item.useAmmo = ItemType<MortarShell>();;
+			item.useAmmo = ItemType<MortarShell>();
 			item.holdStyle = 1;
 		}
 		/*public override bool CanUseItem(Player player) {
@@ -73,8 +73,10 @@ namespace GeraldFitzTheNPC.Items
 		}*/
 		public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
 		{
-			int proj = Projectile.NewProjectile(position.X, position.Y, 0,-50, type, damage, knockBack, player.whoAmI);
+			int proj = Projectile.NewProjectile(position.X, position.Y, 0,-250, type, damage, knockBack, player.whoAmI);
 			Main.projectile[proj].ai[1] = Main.MouseWorld.X;
+			
+			
 			return false; // return false because we don't want tmodloader to shoot projectile
 		}
 		/*
@@ -94,18 +96,22 @@ namespace GeraldFitzTheNPC.Items
 		public override void AddRecipes() 
 		{
 			ModRecipe recipe = new ModRecipe(mod);
-			recipe.AddIngredient(ItemID.GrenadeLauncher, 1);
-			recipe.AddIngredient(ItemID.LeadBar, 20);
-			recipe.AddTile(TileID.WorkBenches);
+			recipe.AddIngredient(ItemType<Cannonade>(),1);
+			recipe.AddIngredient(ItemID.ClayBlock, 30);
+			recipe.AddIngredient(ItemID.LeadBar, 15);
+			recipe.AddTile(TileID.HeavyWorkBench);
 			recipe.SetResult(this);
 			recipe.AddRecipe();
 
 			recipe = new ModRecipe(mod);
-			recipe.AddIngredient(ItemID.GrenadeLauncher, 1);
-			recipe.AddIngredient(ItemID.IronBar, 20);
-			recipe.AddTile(TileID.WorkBenches);
+			recipe.AddIngredient(ItemType<Cannonade>(),1);
+			recipe.AddIngredient(ItemID.ClayBlock, 30);
+			recipe.AddIngredient(ItemID.IronBar, 15);
+			recipe.AddTile(TileID.HeavyWorkBench);
 			recipe.SetResult(this);
 			recipe.AddRecipe();
+			
+			
 
 		}
 	}

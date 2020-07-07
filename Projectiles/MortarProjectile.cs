@@ -3,11 +3,15 @@ using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using System;
 
 namespace GeraldFitzTheNPC.Projectiles
 {
-	public class MortarShell : ModProjectile
+	public class MortarProjectile : ModProjectile
 	{
+		int c = 0;
+		float startY;
+		float startX;
 		public override void SetStaticDefaults() {
 			DisplayName.SetDefault("Morar Shell");     //The English name of the projectile
 			ProjectileID.Sets.TrailCacheLength[projectile.type] = 15;    //The length of old position to be recorded
@@ -30,13 +34,46 @@ namespace GeraldFitzTheNPC.Projectiles
 			projectile.extraUpdates = 5;            //Set to above 0 if you want the projectile to update multiple time in a frame
 			aiType = ProjectileID.Bullet;           //Act exactly like default Bullet
 		}
-
 		public override void AI(){
-			//mod.Logger.Debug(projectile.position.Y);
+			
+			float spacing = 5.0f;
+			float circle = 500.0f;
+			if(c == 0){
+				if(projectile.ai[1] < projectile.position.X){
+					circle = projectile.position.X - projectile.ai[1];
+				}else{
+					circle =  projectile.ai[1] - projectile.position.X;
+				}
+				circle = circle / 10;
+			}
+			
 			if(projectile.position.Y < 50){
-				projectile.velocity.Y = 50;
+				c = (int) (circle+spacing)+1;
+				Main.NewText(c);
 				projectile.position.X = projectile.ai[1];
 			}
+			projectile.velocity.X = 0;
+			c++;
+			if(c < spacing){
+				projectile.velocity.Y = -1-Main.rand.Next(20);
+			}else if(c <= spacing+circle){
+				if(c == spacing){
+					startY = projectile.position.Y;
+					startX = projectile.position.X;
+				}
+				projectile.rotation = -(10.0f/3.0f)* (float) Math.PI * (float) Math.Sin((1.0f/600.0f) * (float) Math.PI * (c - 310.0f));
+				//Main.NewText(projectile.ai[1]);
+				projectile.velocity.Y = 0;
+				//Main.NewText((((((float) c)-100.0f)/600.0f)*(projectile.ai[1]-startX)));
+				//Main.NewText((2.0f*(float) Math.Cos((((c-100.0f)/600.0f)-(float)(1/2))*Math.PI)));
+				//Main.NewText("("+startX+","+startY+")");
+				//Main.NewText(((c-(spacing))/(circle))-(float)(1/2));
+				projectile.position.Y = startY-(5000.0f*(float) Math.Cos((((c-(spacing))/(circle))-(float)(1.0f/2.0f))*Math.PI));
+				projectile.position.X = startX+(((((float) c)-(spacing))/(circle))*(projectile.ai[1]-startX));
+			}else if(c > circle + spacing){
+				projectile.velocity.Y = 5;
+			}
+			
 		}
 
 		public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor) {
