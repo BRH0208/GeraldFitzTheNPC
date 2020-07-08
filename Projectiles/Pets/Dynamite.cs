@@ -13,6 +13,10 @@ namespace GeraldFitzTheNPC.Projectiles.Pets {
 		public override void SetDefaults() {
 			projectile.CloneDefaults(ProjectileID.Parrot);
 			aiType = ProjectileID.Parrot;
+			projectile.width = 8;
+			projectile.height = 24;
+			drawOffsetX = -18;
+			drawOriginOffsetY = -16;
 		}
 
 		public override bool PreAI() {
